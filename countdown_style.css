@@ -1,0 +1,59 @@
+
+@font-face{
+    font-family:"hussar-bold-web-edition";
+    src:url("https://candyfonts.com/wp-data/2018/10/11/6345/HussarBoldWeb.otf") format("woff"),
+    url("https://candyfonts.com/wp-data/2018/10/11/6345/HussarBoldWeb.otf") format("opentype"),
+    url("https://candyfonts.com/wp-data/2018/10/11/6345/HussarBoldWeb.otf") format("truetype");
+}
+body {
+    background-color: #171717;
+  }
+  
+  h1.header {
+    margin: 0;
+    position: absolute;
+    top: 35%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family:"hussar-bold-web-edition";
+    color: #DA0037;
+    font-weight:Bold;
+    text-align: center;
+  }
+  p.sig{
+        position: absolute;
+        bottom: 0;
+        left: 94%;
+        color: #DA0037;
+        font-family:"hussar-bold-web-edition";
+        font-size:small;
+    }
+
+  p.timer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    padding-top: 25px;
+    padding-left:25px;
+    padding-right:25px;
+    padding-bottom: 25px;
+    background-color: #444444;
+    border-color: white;
+    color: #EDEDED;
+    font-family: verdana;
+    font-size: 20px;
+  }
+  div.transbox{
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    margin: 25px;
+    background-color: white;
+    
+  }

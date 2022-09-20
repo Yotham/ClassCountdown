@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" href="countdown_style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+p {
+  text-align: center;
+  font-size: 60px;
+  margin-top: 0px;
+}
+</style>
+</head>
+    <body>
+        <center><h1 class = "header">Class Countdown</h1></center><br>
+
+        <p class = "timer" id="demo"></p>
+            <script>
+                
+                // Set the date we're counting down to
+                const ClassEnd = prompt("Class End (i.e 3:50): ");
+                var hour_end = 0
+                var minute_begin = 0
+                for(let i = 0; i < ClassEnd.length; i++){
+                    if(ClassEnd[i] == ":"){
+                        hour_end = i;
+                        minute_begin = i+1
+                    }
+                    
+                }
+                var ClassHour = ClassEnd.slice(0,hour_end) 
+                var ClassHour = parseInt(ClassHour) + 12
+                var ClassMinute = ClassEnd.slice(minute_begin,minute_begin+2)
+                // Update the count down every 1 second
+                var x = setInterval(function() {
+                    // Get today's date and time
+                    var now = new Date();
+                    var currHour = now.getHours();
+
+                    var currMinute = now.getMinutes();
+                
+                    
+                    // Time calculations for days, hours, minutes and seconds
+                    var hours = ClassHour - currHour
+                    var minutes = ClassMinute - currMinute
+                    if(minutes < 0 ){
+                        hours--;
+                        minutes = 59 + minutes
+                    }
+                    var seconds = 59 - now.getSeconds()
+                    
+                    // Output the result in an element with id="demo"
+                    document.getElementById("demo").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+                    
+                    // If the count down is over, write some text 
+                    if (hours == 0 && minutes == 0 && seconds == 0) {
+                    clearInterval(x);
+                    document.getElementById("demo").innerHTML = "Congrats";
+                    
+                    }
+                }, 1000);
+            </script>   
+    <p class = "sig">Yotham Sage</p>
+    </body>
+</html>
