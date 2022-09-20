@@ -1,60 +1,91 @@
-
-@font-face{
-    font-family:"hussar-bold-web-edition";
-    src:url("https://candyfonts.com/wp-data/2018/10/11/6345/HussarBoldWeb.otf") format("woff"),
-    url("https://candyfonts.com/wp-data/2018/10/11/6345/HussarBoldWeb.otf") format("opentype"),
-    url("https://candyfonts.com/wp-data/2018/10/11/6345/HussarBoldWeb.otf") format("truetype");
+<!DOCTYPE HTML>
+<html>
+<head>
+    <link rel="stylesheet" href="countdown_style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+p {
+  text-align: center;
+  font-size: 60px;
+  margin-top: 0px;
 }
-body {
-    background-color: #171717;
-  }
-  
-  h1.header {
-    margin: 0;
-    position: absolute;
-    top: 35%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family:"hussar-bold-web-edition";
-    color: #DA0037;
-    font-weight:Bold;
-    text-align: center;
-  }
-  p.sig{
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: #DA0037;
-        font-family:"hussar-bold-web-edition";
-        font-size:small;
-    }
+</style>
+</head>
+    <body>
+        <center><h1 class = "header">Class Countdown</h1></center><br>
 
-  p.timer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    padding-top: 25px;
-    padding-left:25px;
-    padding-right:25px;
-    padding-bottom: 25px;
-    background-color: #444444;
-    border-color: white;
-    color: #EDEDED;
-    font-family: verdana;
-    font-size: 20px;
-  }
-  div.transbox{
-    border-top-left-radius: 4px;
-    border-top-right-radius: 4px;
-    border-bottom-left-radius: 4px;
-    border-bottom-right-radius: 4px;
-    margin: 25px;
-    background-color: white;
-    
-  }
+        <p class = "timer" id="demo"></p>
+            <script>
+                // Set the date we're counting down to
+                var max_wrong = 5
+                var ClassHour = 0;
+                var ClassMinute = 0;
+                function enterTime(){
+                    ClassHour = 0;
+                    ClassMinute = 0;
+                    const ClassEnd = prompt("Class End (i.e 3:50): ").trim();
+                    var hour_end = 0
+                    var minute_begin = 0
+                    var col_found = false;
+                    for(let i = 0; i < ClassEnd.length; i++){
+                        if(ClassEnd[i] == ":"){
+                            col_found = true;
+                            if(i > 2){
+                                window.location.reload();
+                            }
+                            hour_end = i;
+                            minute_begin = i+1
+                        }
+                        
+                    }
+                    if(!col_found){
+                        window.location.reload();
+                    }
+                    ClassHour = ClassEnd.slice(0,hour_end) 
+                    ClassMinute = ClassEnd.slice(minute_begin,minute_begin+2)
+                    if(isNaN(ClassHour) || isNaN(ClassMinute)|| ClassEnd.length > 5 || ClassEnd.length < 4) {
+                        window.location.reload();
+                    }
+                    if(parseInt(ClassHour) > 12  || parseInt(ClassMinute) > 59  ){
+                        window.location.reload();
+                    }
+                
+                    ClassHour = parseInt(ClassHour) + 12
+                    ClassMinute = parseInt(ClassMinute)
+                }
+                enterTime();
+                // Update the count down every 1 second
+                var x = setInterval(function() {
+                    // Get today's date and time
+                    var now = new Date();
+                    var currHour = now.getHours();
+
+                    var currMinute = now.getMinutes();
+                
+                    
+                    // Time calculations for days, hours, minutes and seconds
+                    var hours = ClassHour - currHour
+                    var minutes = ClassMinute - currMinute
+                    if(hours < 0){
+                        hours += 12;
+                    }
+                    if(minutes < 0 ){
+                        hours--;
+                        minutes = 59 + minutes
+                    }
+                    var seconds = 59 - now.getSeconds()
+                    
+                    // Output the result in an element with id="demo"
+                    document.getElementById("demo").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+                    
+                    // If the count down is over, write some text 
+                    if (hours == 0 && minutes == 0 && seconds == 0) {
+                    clearInterval(x);
+                    document.getElementById("demo").innerHTML = "Congrats";
+                    
+                    }
+                }, 1000);
+            </script>   
+    <p class = "sig">Yotham Sage</p>
+    </body>
+</html>
