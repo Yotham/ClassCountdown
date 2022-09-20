@@ -16,21 +16,47 @@ p {
 
         <p class = "timer" id="demo"></p>
             <script>
-                
                 // Set the date we're counting down to
-                const ClassEnd = prompt("Class End (i.e 3:50): ");
-                var hour_end = 0
-                var minute_begin = 0
-                for(let i = 0; i < ClassEnd.length; i++){
-                    if(ClassEnd[i] == ":"){
-                        hour_end = i;
-                        minute_begin = i+1
+                var max_wrong = 5
+                var ClassHour = 0;
+                var ClassMinute = 0;
+                function enterTime(){
+                    ClassHour = 0;
+                    ClassMinute = 0;
+                    const ClassEnd = prompt("Class End (i.e 3:50): ").trim();
+                    var hour_end = 0
+                    var minute_begin = 0
+                    var col_found = false;
+                    for(let i = 0; i < ClassEnd.length; i++){
+                        if(ClassEnd[i] == ":"){
+                            col_found = true;
+                            if(i > 2 && max_wrong > 0){
+                                enterTime();
+                            }
+                            hour_end = i;
+                            minute_begin = i+1
+                        }
+                        
+                    }
+                    if(col_found == false && max_wrong > 0){
+                        enterTime();
                     }
                     
+                    ClassHour = ClassEnd.slice(0,hour_end) 
+                    ClassMinute = ClassEnd.slice(minute_begin,minute_begin+2)
+                    if(isNaN(ClassHour) && max_wrong > 0 || isNaN(ClassMinute ) && max_wrong > 0 || ClassEnd.length > 5) {
+                        enterTime();
+                        max_wrong--;
+                    }
+                    if(parseInt(ClassHour) > 12 && max_wrong > 0 || parseInt(ClassMinute) > 59 && max_wrong > 0 ){
+                        enterTime();
+                        max_wrong--;
+                    }
+                
+                    ClassHour = parseInt(ClassHour) + 12
+                    ClassMinute = parseInt(ClassMinute)
                 }
-                var ClassHour = ClassEnd.slice(0,hour_end) 
-                var ClassHour = parseInt(ClassHour) + 12
-                var ClassMinute = ClassEnd.slice(minute_begin,minute_begin+2)
+                enterTime();
                 // Update the count down every 1 second
                 var x = setInterval(function() {
                     // Get today's date and time
@@ -43,6 +69,9 @@ p {
                     // Time calculations for days, hours, minutes and seconds
                     var hours = ClassHour - currHour
                     var minutes = ClassMinute - currMinute
+                    if(hours < 0){
+                        hours += 12;
+                    }
                     if(minutes < 0 ){
                         hours--;
                         minutes = 59 + minutes
