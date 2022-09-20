@@ -21,9 +21,6 @@ p {
                 var ClassHour = 0;
                 var ClassMinute = 0;
                 function enterTime(){
-                    if(max_wrong = 0){
-                        document.getElementById("demo").innerHTML ="Refresh and Try Again";
-                    }
                     ClassHour = 0;
                     ClassMinute = 0;
                     const ClassEnd = prompt("Class End (i.e 3:50): ").trim();
@@ -33,29 +30,24 @@ p {
                     for(let i = 0; i < ClassEnd.length; i++){
                         if(ClassEnd[i] == ":"){
                             col_found = true;
-                            if(i > 2 && max_wrong > 0){
-                                enterTime();
-                                max_wrong--
+                            if(i > 2){
+                                window.location.reload();
                             }
                             hour_end = i;
                             minute_begin = i+1
                         }
                         
                     }
-                    if(col_found == false && max_wrong > 0){
-                        enterTime();
-                        max_wrong--;
+                    if(!col_found){
+                        window.location.reload();
                     }
-                    
                     ClassHour = ClassEnd.slice(0,hour_end) 
                     ClassMinute = ClassEnd.slice(minute_begin,minute_begin+2)
-                    if(isNaN(ClassHour) && max_wrong > 0 || isNaN(ClassMinute ) && max_wrong > 0 || ClassEnd.length > 5 || ClassEnd.length < 4) {
-                        enterTime();
-                        max_wrong--;
+                    if(isNaN(ClassHour) || isNaN(ClassMinute)|| ClassEnd.length > 5 || ClassEnd.length < 4) {
+                        window.location.reload();
                     }
-                    if(parseInt(ClassHour) > 12 && max_wrong > 0 || parseInt(ClassMinute) > 59 && max_wrong > 0 ){
-                        enterTime();
-                        max_wrong--;
+                    if(parseInt(ClassHour) > 12  || parseInt(ClassMinute) > 59  ){
+                        window.location.reload();
                     }
                 
                     ClassHour = parseInt(ClassHour) + 12
