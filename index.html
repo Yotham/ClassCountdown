@@ -21,6 +21,9 @@ p {
                 var ClassHour = 0;
                 var ClassMinute = 0;
                 function enterTime(){
+                    if(max_wrong = 0){
+                        document.getElementById("demo").innerHTML ="Refresh and Try Again";
+                    }
                     ClassHour = 0;
                     ClassMinute = 0;
                     const ClassEnd = prompt("Class End (i.e 3:50): ").trim();
@@ -32,6 +35,7 @@ p {
                             col_found = true;
                             if(i > 2 && max_wrong > 0){
                                 enterTime();
+                                max_wrong--
                             }
                             hour_end = i;
                             minute_begin = i+1
@@ -40,11 +44,12 @@ p {
                     }
                     if(col_found == false && max_wrong > 0){
                         enterTime();
+                        max_wrong--;
                     }
                     
                     ClassHour = ClassEnd.slice(0,hour_end) 
                     ClassMinute = ClassEnd.slice(minute_begin,minute_begin+2)
-                    if(isNaN(ClassHour) && max_wrong > 0 || isNaN(ClassMinute ) && max_wrong > 0 || ClassEnd.length > 5) {
+                    if(isNaN(ClassHour) && max_wrong > 0 || isNaN(ClassMinute ) && max_wrong > 0 || ClassEnd.length > 5 || ClassEnd.length < 4) {
                         enterTime();
                         max_wrong--;
                     }
