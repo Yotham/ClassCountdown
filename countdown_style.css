@@ -23,7 +23,8 @@ body {
   p.sig{
         position: absolute;
         bottom: 0;
-        left: 94%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         color: #DA0037;
         font-family:"hussar-bold-web-edition";
         font-size:small;
