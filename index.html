@@ -52,7 +52,8 @@ p {
                     if(isNaN(ClassHour) || isNaN(ClassMinute)|| ClassEnd.length > 7 || ClassEnd.length < 6) {
                         window.location.reload();
                     }
-                    if(parseInt(ClassHour) > 12  || parseInt(ClassMinute) > 59  ){
+                    
+                    if(parseInt(ClassHour) > 12  || parseInt(ClassMinute) > 59 || parseInt(ClassHour) == 0){
                         window.location.reload();
                     }
                     if (am_pm == "PM"){
