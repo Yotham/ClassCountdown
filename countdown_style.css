@@ -8,7 +8,12 @@
 body {
     background-color: #171717;
   }
-  
+label.Name{
+    color:white;
+  }
+label.textcontent{
+    color:white;
+}
   h1.header {
     margin: 0;
     position: absolute;
@@ -20,6 +25,26 @@ body {
     font-weight:Bold;
     text-align: center;
   }
+  a.refresh{
+    margin: 0;
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #DA0037;
+    background:none;
+    outline:none;
+    font-family:"hussar-bold-web-edition";
+    font-size:20px;
+  }
+  a.refresh:hover{
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  a.github{
+    text-decoration: none;
+    color: #DA0037;
+  }
   p.sig{
         position: absolute;
         bottom: 0;
@@ -28,7 +53,11 @@ body {
         color: #DA0037;
         font-family:"hussar-bold-web-edition";
         font-size:small;
-    }
+    }   
+ p.sig:hover{
+        text-decoration: underline;
+        cursor: pointer;
+      }
 
   p.timer {
     position: absolute;
