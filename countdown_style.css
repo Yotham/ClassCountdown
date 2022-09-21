@@ -6,6 +6,8 @@
     url("https://candyfonts.com/wp-data/2018/10/11/6345/HussarBoldWeb.otf") format("truetype");
 }
 body {
+  -webkit-user-select:none;-moz-user-select:-moz-none;
+  -ms-user-select:none;user-select:none;
     background-color: #171717;
   }
 label.Name{
