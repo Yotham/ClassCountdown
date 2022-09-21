@@ -55,8 +55,21 @@ p {
                     if(parseInt(ClassHour) > 12  || parseInt(ClassMinute) > 59  ){
                         window.location.reload();
                     }
-                
-                    ClassHour = parseInt(ClassHour) + 12
+                    if (am_pm == "PM"){
+                        if(parseInt(ClassHour) == 12){
+                            ClassHour = parseInt(ClassHour);
+                        }
+                        else{
+                        ClassHour = parseInt(ClassHour) + 12;
+                        }
+                       
+                    }
+                    else{
+                        if(parseInt(ClassHour) == 12){
+                            ClassHour = parseInt(ClassHour) + 12;
+                        }
+                        ClassHour = parseInt(ClassHour);
+                    }
                     ClassMinute = parseInt(ClassMinute)
                 }
                 enterTime();
@@ -67,25 +80,45 @@ p {
                     var currHour = now.getHours();
                     var currMinute = now.getMinutes();
                     // Time calculations for days, hours, minutes and seconds
-                    var hours = ClassHour - currHour
-                    var minutes = ClassMinute - currMinute
-                    if(am_pm == "PM"){
-                        hours +=24;
+                    var hours = ClassHour - currHour;
+                    var minutes = ClassMinute - currMinute;
+                
+                    
+                    
+                    if(ClassHour < currHour){
+                        if(hours < -15){
+                            hours = hours-1;
+                        }
+                        hours += 24;
+                        if (minutes < 0 ){
+                            minutes = 59 + minutes;
+                        }
+                        else{
+                            minutes = minutes;
+                        }
                     }
-                    if(am_pm == "AM"){
-                        hours +=12;
+
+                    if(hours == 0 ){
+                        hours += 24;
+                        if(minutes > 0 ){
+                            hours -=24;
+                        }
+                        if(minutes < 0){
+                            hours--;
+                            minutes = 59 + minutes;
+                        }
+                        else{
+                            minutes = minutes;
+                        }
                     }
-                    if(hours < 0){
+                    else if(hours == 0 && minutes < 0){
                         hours += 12;
                     }
-                    if(hours == 0 && minutes < 0){
-                        hours += 12
-                    }
-                    if(minutes < 0 && hours != 0){
+                    else if(minutes < 0 && hours != 0){
                         hours--;
-                        minutes = 59 + minutes
+                        minutes = 59 + minutes;
                     }
-                    var seconds = 59 - now.getSeconds()
+                    var seconds = 59 - now.getSeconds();
                     
                     // Output the result in an element with id="demo"
                     document.getElementById("demo").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
