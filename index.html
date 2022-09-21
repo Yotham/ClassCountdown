@@ -13,125 +13,167 @@ p {
 </head>
     <body>
         <center><h1 class = "header">Countdown</h1></center><br>
+    <div>
         <p class = "timer" id="demo"></p>
-            <script>
-                // Set the date we're counting down to
-                var max_wrong = 5
-                var ClassHour = 0;
-                var ClassMinute = 0;
-                let am_pm = "";
-                function enterTime(){
-                    ClassHour = 0;
-                    ClassMinute = 0;
-                    const ClassEnd = prompt("Countdown Till (i.e 3:50PM): ").trim();
-                    
-                    am_pm = ClassEnd.slice(ClassEnd.length-2,ClassEnd.length).toUpperCase()
-                    if(am_pm != "PM" && am_pm != "AM"){
-                       window.location.reload();
-                    }
-                    var hour_end = 0
-                    var minute_begin = 0
-                    var col_found = false;
-                    for(let i = 0; i < ClassEnd.length; i++){
-                        if(ClassEnd[i] == ":"){
-                            col_found = true;
-                            if(i > 2){
-                                window.location.reload();
-                            }
+            <div class = "transbox">
+                <script>
+                    // Set the date we're counting down to
+                    var max_wrong = 5
+                    var ClassHour = 0;
+                    var ClassMinute = 0;
+                    let am_pm = "";
+                    function enterTime(){
+                        ClassHour = 0;
+                        ClassMinute = 0;
+                        const ClassEnd = prompt("Countdown Till (i.e 3:50PM): ").trim();
+                        
+                        am_pm = ClassEnd.slice(ClassEnd.length-2,ClassEnd.length).toUpperCase()
+                        if(am_pm != "PM" && am_pm != "AM"){
+                            window.location.reload();
+                        }
+                        var hour_end = 0
+                        var minute_begin = 0
+                        var col_found = false;
+                        for(let i = 0; i < ClassEnd.length; i++){
+                            if(ClassEnd[i] == ":"){
+                                col_found = true;
+                                if(i > 2){
+                                    window.location.reload();
+                                }
 
-                            hour_end = i;
-                            minute_begin = i+1
+                                hour_end = i;
+                                minute_begin = i+1
+                            }
+                            
+                        }
+                        if(!col_found){
+                            window.location.reload();
+                        }
+                        ClassHour = ClassEnd.slice(0,hour_end) 
+                        ClassMinute = ClassEnd.slice(minute_begin,minute_begin+2)
+                        if(isNaN(ClassHour) || isNaN(ClassMinute)|| ClassEnd.length > 7 || ClassEnd.length < 6) {
+                            window.location.reload();
                         }
                         
-                    }
-                    if(!col_found){
-                        window.location.reload();
-                    }
-                    ClassHour = ClassEnd.slice(0,hour_end) 
-                    ClassMinute = ClassEnd.slice(minute_begin,minute_begin+2)
-                    if(isNaN(ClassHour) || isNaN(ClassMinute)|| ClassEnd.length > 7 || ClassEnd.length < 6) {
-                        window.location.reload();
-                    }
-                    
-                    if(parseInt(ClassHour) > 12  || parseInt(ClassMinute) > 59 || parseInt(ClassHour) == 0){
-                        window.location.reload();
-                    }
-                    if (am_pm == "PM"){
-                        if(parseInt(ClassHour) == 12){
+                        if(parseInt(ClassHour) > 12  || parseInt(ClassMinute) > 59 || parseInt(ClassHour) == 0){
+                            window.location.reload();
+                        }
+                        if (am_pm == "PM"){
+                            if(parseInt(ClassHour) == 12){
+                                ClassHour = parseInt(ClassHour);
+                            }
+                            else{
+                            ClassHour = parseInt(ClassHour) + 12;
+                            }
+                            
+                        }
+                        else{
+                            if(parseInt(ClassHour) == 12){
+                                ClassHour = parseInt(ClassHour) + 12;
+                            }
                             ClassHour = parseInt(ClassHour);
                         }
-                        else{
-                        ClassHour = parseInt(ClassHour) + 12;
-                        }
-                       
+                        ClassMinute = parseInt(ClassMinute)
                     }
-                    else{
-                        if(parseInt(ClassHour) == 12){
-                            ClassHour = parseInt(ClassHour) + 12;
-                        }
-                        ClassHour = parseInt(ClassHour);
-                    }
-                    ClassMinute = parseInt(ClassMinute)
-                }
-                enterTime();
-                // Update the count down every 1 second
-                var x = setInterval(function() {
-                    // Get today's date and time
-                    var now = new Date();
-                    var currHour = now.getHours();
-                    var currMinute = now.getMinutes();
-                    // Time calculations for days, hours, minutes and seconds
-                    var hours = ClassHour - currHour;
-                    var minutes = ClassMinute - currMinute;
-                
+                    enterTime();
+                    // Update the count down every 1 second
+                    var x = setInterval(function() {
+                        // Get today's date and time
+                        var now = new Date();
+                        var currHour = now.getHours();
+                        var currMinute = now.getMinutes();
+                        // Time calculations for days, hours, minutes and seconds
+                        var hours = ClassHour - currHour;
+                        var minutes = ClassMinute - currMinute;
                     
-                    
-                    if(ClassHour < currHour){
-                        if(hours < -15){
-                            hours = hours-1;
+                        
+                        
+                        if(ClassHour < currHour){
+                            if(hours < -15){
+                                hours = hours-1;
+                            }
+                            hours += 24;
+                            if (minutes < 0 ){
+                                minutes = 59 + minutes;
+                            }
+                            else{
+                                minutes = minutes;
+                            }
                         }
-                        hours += 24;
-                        if (minutes < 0 ){
-                            minutes = 59 + minutes;
-                        }
-                        else{
-                            minutes = minutes;
-                        }
-                    }
 
-                    if(hours == 0 ){
-                        hours += 24;
-                        if(minutes > 0 ){
-                            hours -=24;
+                        if(hours == 0 ){
+                            hours += 24;
+                            if(minutes > 0 ){
+                                hours -=24;
+                            }
+                            if(minutes < 0){
+                                hours--;
+                                minutes = 59 + minutes;
+                            }
+                            else{
+                                minutes = minutes;
+                            }
                         }
-                        if(minutes < 0){
+                        else if(hours == 0 && minutes < 0){
+                            hours += 12;
+                        }
+                        else if(minutes < 0 && hours != 0){
                             hours--;
                             minutes = 59 + minutes;
                         }
-                        else{
-                            minutes = minutes;
+                        var seconds = 59 - now.getSeconds();
+                        
+                        // Output the result in an element with id="demo"
+
+                        if(hours >= 10){
+                            if(minutes >= 10){
+                                if(seconds >= 10){
+                                    document.getElementById("demo").innerHTML = hours + ":" + minutes  + '<sub> ' +seconds + '</sub>';
+                                }
+                                else{
+                                    document.getElementById("demo").innerHTML = hours + ":" + minutes  + '<sub> ' + "0" + seconds + '</sub>';
+                                }
+                            }
+                            else{
+                                document.getElementById("demo").innerHTML = hours + ":0" + minutes  + '<sub> ' +seconds + '</sub>';
+                                if(seconds >= 10){
+                                    document.getElementById("demo").innerHTML = hours + ":" + minutes  + '<sub> ' +seconds + '</sub>';
+                                }
+                                else{
+                                    document.getElementById("demo").innerHTML = hours + ":" + minutes  + '<sub> ' + "0" + seconds + '</sub>';
+                                }  
+                            }
                         }
-                    }
-                    else if(hours == 0 && minutes < 0){
-                        hours += 12;
-                    }
-                    else if(minutes < 0 && hours != 0){
-                        hours--;
-                        minutes = 59 + minutes;
-                    }
-                    var seconds = 59 - now.getSeconds();
-                    
-                    // Output the result in an element with id="demo"
-                    document.getElementById("demo").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
-                    
-                    // If the count down is over, write some text 
-                    if (hours == 0 && minutes == 0 && seconds == 0) {
-                    clearInterval(x);
-                    document.getElementById("demo").innerHTML = "Congrats";
-                    
-                    }
-                }, 1000);
-            </script>   
+                        else{
+                            if(minutes >= 10){
+                                document.getElementById("demo").innerHTML = "0" + hours + ":" + minutes  + '<sub> ' +seconds + '</sub>';
+                                if(seconds >= 10){
+                                    document.getElementById("demo").innerHTML = hours + ":" + minutes  + '<sub> ' +seconds + '</sub>';
+                                }
+                                else{
+                                    document.getElementById("demo").innerHTML = hours + ":" + minutes  + '<sub> ' + "0" + seconds + '</sub>';
+                                } 
+                            }
+                            else{
+                                document.getElementById("demo").innerHTML = "0" + hours + ":0" + minutes  + '<sub> ' +seconds + '</sub>';
+                                if(seconds >= 10){
+                                    document.getElementById("demo").innerHTML = hours + ":" + minutes  + '<sub> ' +seconds + '</sub>';
+                                }
+                                else{
+                                    document.getElementById("demo").innerHTML = hours + ":" + minutes  + '<sub> ' + "0" + seconds + '</sub>';
+                                }
+                            }
+                        }
+                        
+                        // If the count down is over, write some text 
+                        if (hours == 0 && minutes == 0 && seconds == 0) {
+                        clearInterval(x);
+                        document.getElementById("demo").innerHTML = "Congrats";
+                        
+                        }
+                    }, 1000);
+                </script>   
+            </div>
      <center><a onclick = "window.location.reload()" class = "refresh">Refresh</a></center><br>
      
     <p class = "sig"> <a class = "github" href = "https://github.com/yotham" target = "_blank">Yotham Sage</a></p>
